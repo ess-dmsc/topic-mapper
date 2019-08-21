@@ -56,5 +56,6 @@ if __name__ == "__main__":
         Mapping(input_topics=["denex_detector", "monitor"], output_topic="V20_events",
                 filter_schema=b'ev42')]
 
+    # Start doing each topic mapping in parallel
     for mapping in mappings:
         Process(target=forward_messages, args=(args.broker, mapping)).start()
