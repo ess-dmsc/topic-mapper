@@ -8,7 +8,7 @@ from multiprocessing import Process
 
 @attr.s
 class Mapping:
-    input_topics = attr.ib(type=List[str, ...])  # List rather than Tuple as that is what Consumer.subscribe() takes
+    input_topics = attr.ib(type=List[str])  # List rather than Tuple as that is what Consumer.subscribe() takes
     output_topic = attr.ib(type=str)
     filter_schema = attr.ib(type=Optional[bytes], default=None)
 
