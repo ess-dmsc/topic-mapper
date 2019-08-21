@@ -16,3 +16,9 @@ Run `topic_mapper.py`:
 ```
 python topic_mapper.py --broker localhost
 ```
+
+## To make distributable
+A standalone distributable package can be made using cx_freeze:
+```
+cxfreeze topic_mapper.py --target-dir dist
+```
