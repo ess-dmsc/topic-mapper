@@ -8,3 +8,10 @@ Requires Python 3.6+. Install dependencies with pip:
 ```
 pip install -r requirements.txt
 ```
+
+Mapping is currently hardcoded in `topic_mapper.py`.
+
+Run `topic_mapper.py`:
+```
+python topic_mapper.py --broker localhost
+```
