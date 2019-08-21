@@ -19,10 +19,10 @@ def print_assignment(_, partitions):
 
 def forward_messages(broker: str, mapping: Mapping):
     consumer_conf = {'bootstrap.servers': broker, 'group.id': uuid1(), 'session.timeout.ms': 6000,
-                     'auto.offset.reset': 'latest'}
+                     'auto.offset.reset': 'latest', 'api.version.request': True}
     consumer = Consumer(consumer_conf)
 
-    producer_conf = {'bootstrap.servers': args.broker}
+    producer_conf = {'bootstrap.servers': args.broker, 'api.version.request': True}
     producer = Producer(**producer_conf)
 
     subscribed = False
@@ -41,7 +41,7 @@ def forward_messages(broker: str, mapping: Mapping):
             print(msg.error())
         else:
             if mapping.filter_schema is not None and msg.value()[4:8] == mapping.filter_schema:
-                producer.produce(mapping.output_topic, msg.value())
+                producer.produce(mapping.output_topic, msg.value(), timestamp=msg.timestamp())
             producer.poll(timeout=1.0)
 
 

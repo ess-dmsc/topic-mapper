@@ -1,6 +1,6 @@
 # Topic Mapper
 
-Map Kafka topics many-to-one. Messages from the input topics are forwarded into the output topic. They can also optionally be filtered such that only messages of a particular flatbuffer schema ID get forwarded.
+Map Kafka topics many-to-one. Messages from the input topics are forwarded into the output topic. Kafka message timestamps are preserved. They can also optionally be filtered such that only messages of a particular flatbuffer schema ID get forwarded.
 
 This is intended as a development tool not something to use in production. Think carefully before using this, particularly with high-volume topics, as the data in the input topics are replicated.
 
