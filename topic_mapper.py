@@ -53,7 +53,7 @@ def forward_messages(broker: str, mapping: Mapping):
                 producer.produce(mapping.output_topic, msg.value(), timestamp=msg.timestamp()[1], callback=delivery_report)
             else:
                 print(f"Message schema id was {msg.value()[4:8]}")
-            producer.poll(timeout=1.0)
+            producer.poll()
 
 
 if __name__ == "__main__":
