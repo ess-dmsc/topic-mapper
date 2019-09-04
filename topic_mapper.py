@@ -41,7 +41,7 @@ def forward_messages(broker: str, mapping: Mapping):
             print(msg.error())
         else:
             if mapping.filter_schema is not None and msg.value()[4:8] == mapping.filter_schema:
-                producer.produce(mapping.output_topic, msg.value(), timestamp=msg.timestamp())
+                producer.produce(mapping.output_topic, msg.value(), timestamp=msg.timestamp()[1])
             producer.poll(timeout=1.0)
 
 
