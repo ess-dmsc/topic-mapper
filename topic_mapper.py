@@ -17,6 +17,15 @@ def print_assignment(_, partitions):
     print('Assignment:', partitions)
 
 
+def delivery_report(err, msg):
+    """ Called once for each message produced to indicate delivery result.
+        Triggered by poll() or flush(). """
+    if err is not None:
+        print('Message delivery failed: {}'.format(err))
+    else:
+        print('Message delivered to {} [{}]'.format(msg.topic(), msg.partition()))
+
+
 def forward_messages(broker: str, mapping: Mapping):
     consumer_conf = {'bootstrap.servers': broker, 'group.id': uuid1(), 'session.timeout.ms': 6000,
                      'auto.offset.reset': 'latest', 'api.version.request': True}
@@ -41,7 +50,7 @@ def forward_messages(broker: str, mapping: Mapping):
             print(msg.error())
         else:
             if mapping.filter_schema is not None and msg.value()[4:8] == mapping.filter_schema:
-                producer.produce(mapping.output_topic, msg.value(), timestamp=msg.timestamp()[1])
+                producer.produce(mapping.output_topic, msg.value(), timestamp=msg.timestamp()[1], callback=delivery_report)
             producer.poll(timeout=1.0)
 
 
