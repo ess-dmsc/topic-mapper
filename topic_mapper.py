@@ -43,6 +43,7 @@ def forward_messages(broker: str, mapping: Mapping):
         subscribed = True
 
     while True:
+        print("Poll for message")
         msg = consumer.poll(timeout=1.0)
         if msg is None:
             continue
